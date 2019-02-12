@@ -158,7 +158,7 @@ void StringListRemoveDuplicates(char** list)		// remove after sorting, so that a
 {
 	StringListSort(list);
 
-	for (uint* node = (uint*)*list; node[NEXT] != NULL; node = (uint*)node[NEXT])
+	for (uint* node = (uint*)*list; node[NEXT] != NULL; )
 	{
 		if (!strcmp((char*)node[CURR], (char*)(((uint*)node[NEXT])[CURR])))  // deleting next node if curr == next
 		{
@@ -167,6 +167,10 @@ void StringListRemoveDuplicates(char** list)		// remove after sorting, so that a
 			void* node_to_free = (void*)node[NEXT];
 			node[NEXT] = ((uint*)node[NEXT])[NEXT];
 			free(node_to_free);
+		}
+		else
+		{
+			node = (uint*)node[NEXT];
 		}
 	}
 }
